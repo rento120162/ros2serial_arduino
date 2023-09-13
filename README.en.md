@@ -40,3 +40,4 @@ ros2 run ros2serial_arduino serial_send_node
 ```
 ros2 run ros2serial_arduino serial_receive_node
 serial_receive_node
+```

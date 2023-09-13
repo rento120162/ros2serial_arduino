@@ -69,7 +69,6 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto node = std::make_shared<rclcpp::Node>("Serialport");
-    auto serial_pub = node->create_publisher<std_msgs::msg::String>("Serial_in", 100);
 
     char device_name[] = "/dev/arduino-mega";
     fd1 = open_serial(device_name);
