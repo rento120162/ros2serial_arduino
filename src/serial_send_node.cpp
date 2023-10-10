@@ -23,28 +23,33 @@ public:
 private:
     void topic_callback(const geometry_msgs::msg::Twist::SharedPtr msg) const
     {
-        char buf[32]; // メッセージのバッファーサイズを適切に制限
-        int bytes_written;
+        char buf[64]; // メッセージのバッファーサイズを適切に制限
+        unsigned int bytes_written;
 
         RCLCPP_INFO(this->get_logger(), "I heard: '%lf'", msg->linear.x);
 
         // メッセージをバッファに書き込む
-        bytes_written = snprintf(buf, sizeof(buf), "%7.5f,%7.5f\n", msg->linear.x, msg->angular.z);
+        // bytes_written = snprintf(buf, sizeof(buf), "%7.5f,%7.5f\n", msg->linear.x, msg->angular.z);
+        bytes_written = snprintf(buf, sizeof(buf), "%7.3f,%7.3f,%7.3f,%7.3f\n", msg->linear.x, msg->angular.z, msg->angular.x, msg->angular.y);
 
-        if (bytes_written < 0 || bytes_written >= sizeof(buf)) {
+
+        if (bytes_written > sizeof(buf)) {
             RCLCPP_ERROR(this->get_logger(), "Serial Fail: message formatting error");
             return;
         }
+        else
+        {
+            printf("cmd_vel recv:%s\n", buf);
 
-        printf("cmd_vel recv:%s\n", buf);
+            int rec = write(fd1, buf, bytes_written);
 
-        int rec = write(fd1, buf, bytes_written);
-
-        if (rec >= 0) {
-            printf("Serial send:%s\n", buf);
-        } else {
-            RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Serial Fail: could not write");
+            if (rec >= 0) {
+                printf("Serial send:%s\n", buf);
+            } else {
+                RCLCPP_ERROR(rclcpp::get_logger("rclcpp"), "Serial Fail: could not write");
+            }
         }
+
 
     }
 
