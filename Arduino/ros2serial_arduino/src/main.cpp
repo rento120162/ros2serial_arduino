@@ -83,6 +83,6 @@ void setup() {
 
 void loop() {
     receive_serial(); // uncomment out to recieve serial data
-    // send_serial(); // uncomment out to send serial data
+    send_serial(); // uncomment out to send serial data
     
 }

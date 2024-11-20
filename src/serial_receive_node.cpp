@@ -31,7 +31,7 @@ int main(int argc, char **argv){
     auto node = std::make_shared<rclcpp::Node>("serial_receive_node");
     auto serial_pub = node->create_publisher<std_msgs::msg::String>("serial_in", 1000);
 
-    char device_name[] = "/dev/arduino-mega"; // /dev/ttyACM0
+    char device_name[] = "/dev/ttyUSB0"; // /dev/ttyACM0
     char fd1 = openSerial(device_name);
     if(fd1 < 0){
         RCLCPP_ERROR(node->get_logger(), "Serial Failed: could not open %s", device_name);
