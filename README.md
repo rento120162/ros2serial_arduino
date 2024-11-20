@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [日本語](README.md) | [English](README.en.md) | 
 
 # ROS2SERIAL_ARDUINO
@@ -39,3 +40,6 @@ ros2 run ros2serial_arduino serial_send_node
 ```
 ros2 run ros2serial_arduino serial_receive_node
 ```
+=======
+# ros2serial_arduino
+>>>>>>> origin/main
